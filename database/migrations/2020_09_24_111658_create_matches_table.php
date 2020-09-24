@@ -15,10 +15,10 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
+            $table->dateTime('date',0);
+            $table->string('slug',255);
             $table->timestamps();
 
-            $table->foreign('post_id')->references('match_id')->on('participations')->onDelete('cascade');
         });
     }
 
