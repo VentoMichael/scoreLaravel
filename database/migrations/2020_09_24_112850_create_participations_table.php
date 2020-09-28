@@ -15,21 +15,11 @@ class CreateParticipationsTable extends Migration
     {
         Schema::create('participations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('match_id');
-            $table->foreignId('team_id');
-            $table->tinyInteger('goals');
+            $table->foreignId('match_id')->references('id')->on('matches')->onDelete('cascade');
+            $table->foreignId('team_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->integer('goals');
             $table->boolean('is_home');
             $table->timestamps();
-
-            $table->foreign('match_id')
-                ->references('id')
-                ->on('matches')
-                ->onDelete('cascade');
-
-            $table->foreign('team_id')
-                ->references('id')
-                ->on('teams')
-                ->onDelete('cascade');
         });
     }
 

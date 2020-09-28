@@ -15,10 +15,9 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date',0);
-            $table->string('slug',255);
+            $table->string('slug')->unique();
+            $table->dateTime('date');
             $table->timestamps();
-
         });
     }
 

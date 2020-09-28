@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\TeamsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [MatchesController::class, 'index']);
+
+Route::get('/matches/create', [MatchesController::class, 'create']);
