@@ -9,9 +9,23 @@ class Team extends Model
 {
     use HasFactory;
 
-    public $fillable = [
-        'name',
-        'slug',
-        'file_name'
-    ];
+    protected $guarded = [];
+    protected $withCount = ['matches'];
+
+    public function matches()
+    {
+        return $this->belongsToMany('App\Models\Match', 'participations')->withPivot('is_home', 'goals');
+    }
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = strtoupper($value);
+    }
+
+    public function getGoalsForAttribute()
+    {
+        return $this->matches->sum(function ($match) {
+            return $match->pivot->goals;
+        });
+    }
 }

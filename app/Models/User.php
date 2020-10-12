@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -40,4 +41,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function getIsAdministratorAttribute()
+    {
+//        $userRole = $this->roles->first()->name;
+////        dd($userRole);
+//        return $userRole === "administrator";
+        return $this->roles->pluck('name')->contains('administrator');
+    }
+
+    public function getIsTeamManagerAttribute()
+    {
+        return $this->roles->pluck('name')->contains('teams-manager');
+    }
 }

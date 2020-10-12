@@ -9,10 +9,5 @@ class Participation extends Model
 {
     use HasFactory;
 
-    public $fillable = [
-        'match_id',
-        'team_id',
-        'goals',
-        'is_home'
-    ];
+
 }
